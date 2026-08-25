@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Support - HealthPro Widgets</title>
+  <meta name="description" content="Support for HealthPro Widgets.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f7f9;
+      --card: #ffffff;
+      --text: #1f2328;
+      --muted: #606770;
+      --border: #d9dde3;
+      --accent: #b4233c;
+      --accent-soft: #fff0f3;
+      --max-width: 760px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111316;
+        --card: #191c20;
+        --text: #f2f4f7;
+        --muted: #b4bbc4;
+        --border: #343940;
+        --accent: #ff7d91;
+        --accent-soft: #321a20;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 48px auto;
+    }
+
+    article {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 34px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+    }
+
+    h1, h2 {
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(2rem, 6vw, 2.7rem);
+    }
+
+    h2 {
+      margin: 34px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    p, li { font-size: 1rem; }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .app-name {
+      color: var(--accent);
+      font-weight: 700;
+      margin: 0 0 2px;
+    }
+
+    .updated {
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+
+    .summary {
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin: 0 0 30px;
+    }
+
+    .summary p { margin: 0; }
+
+    .contact {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      font-weight: 600;
+    }
+
+    ul {
+      padding-left: 1.35rem;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .muted { color: var(--muted); }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 22px 0 6px;
+    }
+
+    @media (max-width: 560px) {
+      main {
+        width: min(100% - 20px, var(--max-width));
+        margin: 18px auto 30px;
+      }
+
+      article {
+        padding: 24px 20px;
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article>
+      <p class="app-name">HealthPro Widgets</p>
+      <h1>Support</h1>
+      <p class="updated">Last updated: August 25, 2026</p>
+
+      <div class="summary">
+        <p>Need help with HealthPro Widgets? You can contact us by email for support, bug reports, or feedback.</p>
+      </div>
+
+      <h2>Contact Support</h2>
+      <p>Email:</p>
+      <p><a class="contact" href="mailto:alexw8888@gmail.com">alexw8888@gmail.com</a></p>
+      <p class="muted">When reporting a problem, please include your iPhone model, iOS version, and a short description of what happened. Screenshots are helpful when available.</p>
+
+      <h2>Widget Help</h2>
+      <p>If a widget is not showing the expected health information:</p>
+      <ul>
+        <li>Open HealthPro Widgets and confirm that the health data you want is enabled.</li>
+        <li>Make sure HealthPro Widgets has permission to read the related data in Apple Health.</li>
+        <li>Open the app after changing permissions or widget settings so the widget can refresh.</li>
+        <li>If necessary, remove the widget and add it again.</li>
+      </ul>
+
+      <h2>Health Data Permissions</h2>
+      <p>HealthPro Widgets only displays Apple Health data that you choose to authorize. You can review or change Health access using the Health app or your device's Privacy &amp; Security settings.</p>
+
+      <h2>Purchases and Pro Access</h2>
+      <p>If you previously purchased HealthPro Widgets Pro and it is not recognized, open HealthPro Widgets and use the Restore Purchase option. App Store purchases and subscriptions are managed through your Apple ID.</p>
+
+      <h2>Privacy</h2>
+      <p>For information about how HealthPro Widgets handles health and app data, see our <a href="privacy.html">Privacy Policy</a>.</p>
+
+      <h2>Feedback</h2>
+      <p>Suggestions and feature requests are welcome. Send them to <a href="mailto:alexw8888@gmail.com">alexw8888@gmail.com</a>.</p>
+    </article>
+
+    <footer>&copy; 2026 HealthPro Widgets</footer>
+  </main>
+</body>
+</html>
