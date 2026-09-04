@@ -68,7 +68,7 @@
     }
 
     a { color: inherit; }
-    img { max-width: 100%; display: block; }
+    img { max-width: 100%; height: auto; display: block; object-fit: contain; }
     .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
     .site-header {
@@ -260,7 +260,7 @@
       box-shadow: 0 28px 60px rgba(0,0,0,.28);
       transform: rotate(-6deg);
     }
-    .watch-float img { width: 100%; border-radius: 22px; }
+    .watch-float img { width: 100%; height: auto; object-fit: contain; border-radius: 22px; }
 
     .proof { padding: 10px 0 22px; }
     .proof-grid {
@@ -334,6 +334,8 @@
     .shot-copy p { margin: 0; color: var(--muted); font-size: .92rem; }
     .iphone-shot {
       width: min(355px, 100%);
+      height: auto;
+      object-fit: contain;
       margin: 0 auto -46px;
       border: 1px solid var(--border-strong);
       border-radius: 36px 36px 0 0;
@@ -359,6 +361,8 @@
     .watch-panel p { color: rgba(255,255,255,.66); max-width: 520px; margin: 0; }
     .watch-shot {
       width: min(360px,100%);
+      height: auto;
+      object-fit: contain;
       margin: 0 auto;
       border-radius: 28px;
       box-shadow: 0 24px 70px rgba(0,0,0,.45);
