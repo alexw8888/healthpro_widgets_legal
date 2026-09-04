@@ -3,674 +3,363 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#f7f7f9" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0d0f12" media="(prefers-color-scheme: dark)">
-  <title>HealthPro Widgets — Your health, right where you look</title>
-  <meta name="description" content="Bring Apple Health data to your iPhone Home Screen, Lock Screen, and Apple Watch with customizable HealthPro Widgets.">
-  <meta property="og:title" content="HealthPro Widgets">
-  <meta property="og:description" content="Your Apple Health data, beautifully displayed in widgets across iPhone and Apple Watch.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="Bring the Apple Health information you care about to customizable HealthPro Widgets on your iPhone and supported Apple Watch.">
+  <link rel="canonical" href="https://alexw8888.github.io/healthpro_widgets_legal/">
+  <meta property="og:title" content="HealthPro Widgets — Your health. A glance away.">
+  <meta property="og:description" content="Choose the Apple Health metrics you care about and keep them visible in customizable widgets.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alexw8888.github.io/healthpro_widgets_legal/">
+  <meta property="og:site_name" content="HealthPro Widgets">
   <meta name="twitter:card" content="summary">
-
-  <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #f7f8fa;
-      --surface: #ffffff;
-      --surface-2: rgba(255,255,255,.78);
-      --text: #111827;
-      --muted: #667085;
-      --border: rgba(16,24,40,.10);
-      --border-strong: rgba(16,24,40,.16);
-      --accent: #b4233c;
-      --accent-2: #e54862;
-      --accent-soft: #fff0f3;
-      --green: #16845d;
-      --blue: #1677e8;
-      --shadow: 0 28px 80px rgba(16,24,40,.12);
-      --shadow-soft: 0 14px 40px rgba(16,24,40,.08);
-      --max: 1160px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0d0f12;
-        --surface: #171a1f;
-        --surface-2: rgba(24,27,32,.82);
-        --text: #f5f7fa;
-        --muted: #aab2bf;
-        --border: rgba(255,255,255,.09);
-        --border-strong: rgba(255,255,255,.16);
-        --accent: #ff7087;
-        --accent-2: #ff8ca0;
-        --accent-soft: #351920;
-        --green: #76d2a7;
-        --blue: #6eb0ff;
-        --shadow: 0 28px 90px rgba(0,0,0,.42);
-        --shadow-soft: 0 14px 45px rgba(0,0,0,.30);
-      }
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 90% 5%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 30rem),
-        radial-gradient(circle at 8% 30%, color-mix(in srgb, #4f7cff 7%, transparent), transparent 25rem),
-        var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    a { color: inherit; }
-    img { max-width: 100%; height: auto; display: block; object-fit: contain; }
-    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: color-mix(in srgb, var(--bg) 78%, transparent);
-      border-bottom: 1px solid transparent;
-      backdrop-filter: blur(20px) saturate(145%);
-      -webkit-backdrop-filter: blur(20px) saturate(145%);
-    }
-
-    .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      text-decoration: none;
-      font-weight: 780;
-      letter-spacing: -.02em;
-      white-space: nowrap;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: 11px;
-      color: #fff;
-      background: linear-gradient(145deg, #df4b63, #a11732);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 8px 20px rgba(180,35,60,.24);
-    }
-    .brand-mark svg { width: 24px; height: 24px; }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      color: var(--muted);
-      font-size: .94rem;
-      font-weight: 650;
-    }
-    .nav-links a { text-decoration: none; }
-    .nav-links a:hover { color: var(--text); }
-
-    .button {
-      min-height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 0 20px;
-      border: 1px solid transparent;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 740;
-      letter-spacing: -.01em;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .button:hover { transform: translateY(-1px); }
-    .button-primary {
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent-2), #a51e37);
-      box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 24%, transparent);
-    }
-    .button-secondary {
-      background: var(--surface);
-      border-color: var(--border-strong);
-      box-shadow: var(--shadow-soft);
-    }
-    .button-small { min-height: 40px; padding: 0 15px; border-radius: 12px; font-size: .9rem; }
-
-    .hero {
-      min-height: 760px;
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      gap: 72px;
-      align-items: center;
-      padding: 84px 0 100px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 18px;
-      padding: 7px 11px;
-      border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
-      border-radius: 999px;
-      color: var(--accent);
-      background: var(--accent-soft);
-      font-size: .84rem;
-      font-weight: 760;
-    }
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 12%, transparent);
-    }
-
-    h1,h2,h3,p { margin-top: 0; }
-    h1 {
-      max-width: 710px;
-      margin-bottom: 22px;
-      font-size: clamp(3.35rem, 7vw, 6.6rem);
-      line-height: .94;
-      letter-spacing: -.065em;
-      font-weight: 830;
-    }
-    .hero-highlight { display: block; color: var(--accent); }
-    .hero-copy {
-      max-width: 640px;
-      margin-bottom: 30px;
-      color: var(--muted);
-      font-size: clamp(1.12rem, 2vw, 1.3rem);
-      line-height: 1.62;
-    }
-
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
-    .trust-note { display: flex; flex-wrap: wrap; gap: 10px 18px; color: var(--muted); font-size: .9rem; font-weight: 620; }
-    .trust-note span { display: inline-flex; align-items: center; gap: 7px; }
-    .check {
-      width: 18px; height: 18px; display: inline-grid; place-items: center; border-radius: 50%;
-      color: var(--green); background: color-mix(in srgb, var(--green) 13%, transparent);
-      font-size: .72rem; font-weight: 900;
-    }
-
-    .hero-visual {
-      position: relative;
-      min-height: 670px;
-      display: grid;
-      place-items: center;
-    }
-    .hero-glow {
-      position: absolute;
-      width: 520px; height: 520px; border-radius: 50%;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 68%);
-      filter: blur(5px);
-    }
-    .screen-frame {
-      position: relative;
-      z-index: 2;
-      width: min(365px, 76vw);
-      overflow: hidden;
-      border: 1px solid var(--border-strong);
-      border-radius: 46px;
-      background: #111;
-      box-shadow: 0 42px 100px rgba(0,0,0,.28);
-      transform: rotate(2.2deg);
-    }
-    .screen-frame img { width: 100%; height: auto; }
-    .screen-badge {
-      position: absolute;
-      z-index: 4;
-      left: -22px;
-      top: 20%;
-      max-width: 190px;
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      background: color-mix(in srgb, var(--surface) 90%, transparent);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      transform: rotate(-4deg);
-    }
-    .screen-badge strong { display: block; margin-bottom: 3px; font-size: .9rem; }
-    .screen-badge span { color: var(--muted); font-size: .78rem; line-height: 1.4; }
-    .watch-float {
-      position: absolute;
-      z-index: 5;
-      right: -12px;
-      bottom: 9%;
-      width: 220px;
-      padding: 10px;
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 30px;
-      background: #020304;
-      box-shadow: 0 28px 60px rgba(0,0,0,.28);
-      transform: rotate(-6deg);
-    }
-    .watch-float img { width: 100%; height: auto; object-fit: contain; border-radius: 22px; }
-
-    .proof { padding: 10px 0 22px; }
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: var(--surface-2);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-    .proof-item { min-height: 142px; display: flex; align-items: center; gap: 16px; padding: 25px; }
-    .proof-item + .proof-item { border-left: 1px solid var(--border); }
-    .proof-icon,.feature-icon {
-      flex: 0 0 auto; display: grid; place-items: center; color: var(--accent); background: var(--accent-soft);
-    }
-    .proof-icon { width: 48px; height: 48px; border-radius: 15px; }
-    .proof-icon svg,.feature-icon svg { width: 25px; height: 25px; }
-    .proof-item strong { display: block; margin-bottom: 3px; letter-spacing: -.015em; }
-    .proof-item p { margin: 0; color: var(--muted); font-size: .88rem; }
-
-    section { padding: 104px 0; }
-    .section-heading { max-width: 760px; margin: 0 auto 50px; text-align: center; }
-    .section-kicker { margin-bottom: 10px; color: var(--accent); font-size: .86rem; font-weight: 780; letter-spacing: .08em; text-transform: uppercase; }
-    h2 { margin-bottom: 16px; font-size: clamp(2.35rem, 5vw, 4.25rem); line-height: 1.02; letter-spacing: -.055em; font-weight: 810; }
-    .section-heading p,.section-intro { color: var(--muted); font-size: 1.08rem; }
-
-    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
-    .feature-card {
-      min-height: 260px;
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      background: var(--surface-2);
-      box-shadow: 0 8px 30px rgba(20,24,30,.035);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-    .feature-icon { width: 48px; height: 48px; margin-bottom: 30px; border-radius: 15px; }
-    h3 { margin-bottom: 10px; font-size: 1.25rem; letter-spacing: -.025em; }
-    .feature-card p { margin: 0; color: var(--muted); font-size: .96rem; }
-
-    .gallery-wrap {
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 90% 5%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 34rem),
-        var(--surface);
-      box-shadow: var(--shadow);
-      padding: 46px;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 34px;
-      align-items: start;
-    }
-    .shot-card {
-      position: relative;
-      padding: 26px 26px 0;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: color-mix(in srgb, var(--bg) 70%, var(--surface));
-    }
-    .shot-copy { padding-bottom: 24px; }
-    .shot-copy h3 { margin-bottom: 7px; font-size: 1.28rem; }
-    .shot-copy p { margin: 0; color: var(--muted); font-size: .92rem; }
-    .iphone-shot {
-      width: min(355px, 100%);
-      height: auto;
-      object-fit: contain;
-      margin: 0 auto -46px;
-      border: 1px solid var(--border-strong);
-      border-radius: 36px 36px 0 0;
-      box-shadow: 0 26px 60px rgba(16,24,40,.16);
-    }
-
-    .watch-panel {
-      grid-column: 1 / -1;
-      min-height: 330px;
-      display: grid;
-      grid-template-columns: 1fr .85fr;
-      gap: 36px;
-      align-items: center;
-      padding: 34px 38px;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: #07090c;
-      color: #fff;
-      overflow: hidden;
-    }
-    .watch-panel .section-kicker { color: #ff8499; }
-    .watch-panel h3 { font-size: clamp(2rem,4vw,3.2rem); line-height: 1.05; letter-spacing: -.045em; margin-bottom: 14px; }
-    .watch-panel p { color: rgba(255,255,255,.66); max-width: 520px; margin: 0; }
-    .watch-shot {
-      width: min(360px,100%);
-      height: auto;
-      object-fit: contain;
-      margin: 0 auto;
-      border-radius: 28px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.45);
-    }
-
-    .privacy-panel {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 54px;
-      align-items: center;
-      padding: 58px;
-      border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 96% 8%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 31rem),
-        var(--surface);
-      box-shadow: var(--shadow);
-    }
-    .privacy-panel p { max-width: 610px; margin-bottom: 28px; color: var(--muted); font-size: 1.05rem; }
-    .privacy-list { display: grid; gap: 14px; }
-    .privacy-item { display: flex; align-items: flex-start; gap: 12px; color: var(--muted); font-size: .92rem; }
-    .privacy-item strong { color: var(--text); }
-    .shield-visual {
-      width: min(330px,100%); aspect-ratio: 1; display: grid; place-items: center; margin: auto;
-      border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border)); border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 50%, var(--accent-soft) 0 40%, transparent 41%),
-        repeating-radial-gradient(circle at 50% 50%, transparent 0 49px, color-mix(in srgb, var(--accent) 12%, transparent) 50px 51px);
-    }
-    .shield-core {
-      width: 126px; height: 126px; display: grid; place-items: center; border-radius: 36px;
-      color: var(--accent); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-soft);
-    }
-    .shield-core svg { width: 58px; height: 58px; }
-
-    .cta-card {
-      padding: 70px 54px;
-      border-radius: 34px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 85% 12%, rgba(255,255,255,.18), transparent 24rem),
-        linear-gradient(135deg, #d33d56, #98162f 58%, #731024);
-      box-shadow: 0 32px 80px rgba(132,20,45,.25);
-      text-align: center;
-    }
-    .cta-card h2 { max-width: 760px; margin-left: auto; margin-right: auto; color: #fff; }
-    .cta-card p { max-width: 650px; margin: 0 auto 28px; color: rgba(255,255,255,.78); font-size: 1.05rem; }
-    .cta-card .button { color: #17181b; background: #fff; box-shadow: 0 14px 34px rgba(0,0,0,.18); }
-
-    .site-footer { padding: 32px 0 44px; color: var(--muted); font-size: .88rem; }
-    .footer-row {
-      display: flex; justify-content: space-between; gap: 24px; align-items: center;
-      padding-top: 24px; border-top: 1px solid var(--border);
-    }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
-    .footer-links a { text-decoration: none; font-weight: 620; }
-    .footer-links a:hover { color: var(--text); }
-    .disclaimer { max-width: 940px; margin: 18px 0 0; font-size: .78rem; line-height: 1.55; }
-
-    @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; gap: 34px; padding-top: 68px; }
-      .hero-visual { min-height: 680px; }
-      .feature-grid { grid-template-columns: repeat(2,1fr); }
-      .privacy-panel { grid-template-columns: 1fr; }
-      .shield-visual { order: -1; width: 280px; }
-    }
-    @media (max-width: 760px) {
-      .wrap { width: min(100% - 28px,var(--max)); }
-      .nav { min-height: 64px; }
-      .nav-links a:not(.button) { display: none; }
-      .hero { min-height: 0; padding: 56px 0 76px; }
-      h1 { font-size: clamp(3rem,15vw,5rem); }
-      .hero-visual { min-height: 585px; }
-      .screen-frame { width: 292px; border-radius: 38px; }
-      .screen-badge { left: -2px; top: 17%; max-width: 154px; padding: 11px 12px; }
-      .watch-float { width: 160px; right: -2px; bottom: 7%; border-radius: 24px; }
-      .proof-grid { grid-template-columns: 1fr; }
-      .proof-item + .proof-item { border-left: 0; border-top: 1px solid var(--border); }
-      section { padding: 80px 0; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .feature-card { min-height: 0; }
-      .gallery-wrap { padding: 24px; border-radius: 28px; }
-      .gallery-grid { grid-template-columns: 1fr; gap: 24px; }
-      .watch-panel { grid-column: auto; grid-template-columns: 1fr; padding: 30px 24px; }
-      .watch-shot { width: min(300px,100%); }
-      .privacy-panel { padding: 34px 24px; border-radius: 28px; }
-      .cta-card { padding: 54px 24px; border-radius: 28px; }
-      .footer-row { align-items: flex-start; flex-direction: column; }
-    }
-    @media (max-width: 480px) {
-      .brand span:last-child { display: none; }
-      .hero-visual { min-height: 530px; }
-      .screen-frame { width: 255px; border-radius: 32px; }
-      .screen-badge { font-size: .8rem; max-width: 135px; }
-      .watch-float { width: 140px; }
-      .gallery-wrap { padding: 17px; }
-      .shot-card { padding: 20px 20px 0; }
-      .iphone-shot { border-radius: 30px 30px 0 0; }
-      .section-heading { text-align: left; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .button { transition: none; }
-    }
-  </style>
+  <link rel="icon" href="./assets/images/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/marketing.css">
+  <title>HealthPro Widgets — Your health. A glance away.</title>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="HealthPro Widgets home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.8 5.8c-2.1-2.2-5.6-1.8-7.3.7L12 8.6l-1.5-2.1C8.8 4 5.3 3.6 3.2 5.8c-2 2.1-1.9 5.5.1 7.5L12 22l8.7-8.7c2-2 2.1-5.4.1-7.5Z"/>
-            <path d="M6.8 12h2.2l1.1-2.4 2.1 5.3 1.5-3h3.5"/>
-          </svg>
-        </span>
+    <div class="container nav">
+      <a class="brand" href="./" aria-label="HealthPro Widgets home">
+        <img src="./assets/images/app-icon.png" width="40" height="40" alt="">
         <span>HealthPro Widgets</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#features">Features</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#privacy">Privacy</a>
-        <a href="support.html">Support</a>
-        <a class="button button-primary button-small" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">Get the app</a>
+        <a class="nav-anchor" href="#widgets">Widgets</a>
+        <a class="nav-anchor" href="#customize">Customize</a>
+        <a class="nav-anchor" href="#privacy">Privacy</a>
+        <a class="nav-cta" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">Get the app</a>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <div class="wrap">
-      <section class="hero" aria-labelledby="hero-title">
-        <div>
-          <div class="eyebrow"><span class="eyebrow-dot"></span> Built for Apple Health</div>
-          <h1 id="hero-title">Your health.<span class="hero-highlight">Right where you look.</span></h1>
-          <p class="hero-copy">Turn the Apple Health data you care about into glanceable widgets across your iPhone and Apple Watch. Pick your categories, choose the values to show, and keep your day visible at a glance.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">Download on the App Store <span aria-hidden="true">→</span></a>
-            <a class="button button-secondary" href="#screenshots">See the app</a>
-          </div>
-          <div class="trust-note">
-            <span><span class="check">✓</span> No HealthPro account</span>
-            <span><span class="check">✓</span> Health data stays on device</span>
-            <span><span class="check">✓</span> iPhone + Apple Watch</span>
-          </div>
+  <main id="main-content">
+    <section class="hero container" id="widgets" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">For iPhone and Apple Watch</p>
+        <h1 id="hero-title">Your health.<span>A glance away.</span></h1>
+        <p class="hero-lede">Bring the Apple Health information you care about to your Home Screen, Lock Screen, and supported Apple Watch widgets. Choose your metrics and make your widgets your own.</p>
+        <div class="hero-actions">
+          <a class="app-store-link" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer" aria-label="Download HealthPro Widgets on the App Store">
+            <img src="./assets/images/download-on-app-store.svg" width="120" height="40" alt="Download on the App Store">
+          </a>
+          <a class="inline-link" href="#screenshots">Explore the widgets <span aria-hidden="true">↗</span></a>
         </div>
+        <p class="price-note">Free to download. Optional Pro upgrade.</p>
+      </div>
 
-        <div class="hero-visual">
-          <div class="hero-glow"></div>
-          <div class="screen-badge">
-            <strong>Real HealthPro widgets</strong>
-            <span>Activity, mobility, workouts, heart, sleep, vitals and more.</span>
-          </div>
-          <div class="screen-frame">
-            <img src="assets/healthpro-home-widgets.webp" width="480" height="1044" alt="HealthPro Widgets on an iPhone Home Screen showing Vitals, Sleep, Heart, Workouts, Walking and Activity widgets" fetchpriority="high">
-          </div>
-          <div class="watch-float">
-            <img src="assets/healthpro-watch.webp" width="360" height="429" alt="HealthPro Widgets on Apple Watch showing Heart Rate and Steps">
-          </div>
-        </div>
-      </section>
-    </div>
+      <div class="hero-visual">
+        <figure class="hero-device hero-device-home">
+          <img
+            src="./assets/images/iphone-home-480.webp"
+            srcset="./assets/images/iphone-home-480.webp 480w, ./assets/images/iphone-home-853.webp 853w"
+            sizes="(min-width: 981px) 370px, (min-width: 641px) 44vw, 92vw"
+            width="853"
+            height="1844"
+            alt="HealthPro Widgets on an iPhone Home Screen with Activity, Walking, Heart, Sleep, Vitals, and Workouts widgets"
+            fetchpriority="high"
+            decoding="async">
+        </figure>
 
-    <div class="wrap proof">
-      <div class="proof-grid">
-        <div class="proof-item">
-          <div class="proof-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></div>
-          <div><strong>Multiple health categories</strong><p>Activity, Walking & Mobility, Workouts & Sports, Heart, Sleep, Vitals and more.</p></div>
-        </div>
-        <div class="proof-item">
-          <div class="proof-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="4"/><path d="M9.5 7.5h5M9.5 11h5M9.5 14.5h3"/></svg></div>
-          <div><strong>iPhone + Apple Watch</strong><p>Use Home Screen, Lock Screen and supported Apple Watch widgets for fast check-ins.</p></div>
-        </div>
-        <div class="proof-item">
-          <div class="proof-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <div><strong>Private by design</strong><p>Your health measurements are processed on your device and are not uploaded to a HealthPro server.</p></div>
+        <div class="lock-column">
+          <figure class="hero-device hero-device-lock">
+            <img
+              src="./assets/images/iphone-lock-480.webp"
+              srcset="./assets/images/iphone-lock-480.webp 480w, ./assets/images/iphone-lock-853.webp 853w"
+              sizes="(min-width: 981px) 300px, (min-width: 641px) 35vw, 92vw"
+              width="853"
+              height="1844"
+              alt="HealthPro Widgets on an iPhone Lock Screen with steps, heart rate, and sleep widgets"
+              loading="eager"
+              decoding="async">
+          </figure>
+          <div class="lock-caption">
+            <p class="caption-label">Lock Screen</p>
+            <h2>The numbers you follow, where you already look.</h2>
+            <p>Keep selected health metrics close at hand, from everyday activity and walking to heart, sleep, and vital information.</p>
+            <ul class="metric-list" aria-label="Example HealthPro widget categories">
+              <li>Activity</li>
+              <li>Walking</li>
+              <li>Heart</li>
+              <li>Sleep</li>
+              <li>Vitals</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <section id="features">
-      <div class="wrap">
+    <section class="metric-strip" aria-label="HealthPro widget categories">
+      <div class="container metric-strip-inner">
+        <p>Make room for the data that matters.</p>
+        <ul>
+          <li>Activity</li>
+          <li>Walking &amp; Mobility</li>
+          <li>Heart</li>
+          <li>Sleep</li>
+          <li>Vitals</li>
+        </ul>
+      </div>
+    </section>
+
+    <span id="features" class="anchor-alias" aria-hidden="true"></span>
+    <section class="watch-section" id="screenshots" aria-labelledby="watch-title">
+      <div class="container watch-layout">
+        <div class="section-copy">
+          <p class="eyebrow">Apple Watch</p>
+          <h2 id="watch-title">A quick check, right on your wrist.</h2>
+          <p>Keep selected health metrics close with Apple Watch widgets, from steps and heart rate to other supported values.</p>
+          <p class="availability-note">Available metrics depend on your device, Health permissions, and recorded data. These previews show example values, not live data.</p>
+        </div>
+        <div class="watch-previews">
+          <figure class="watch-preview">
+            <img
+              src="./assets/images/watch-heart-480.webp"
+              srcset="./assets/images/watch-heart-480.webp 480w, ./assets/images/watch-heart-800.webp 800w"
+              sizes="(min-width: 981px) 270px, (min-width: 521px) 42vw, 88vw"
+              width="1131"
+              height="1391"
+              loading="lazy"
+              decoding="async"
+              alt="Apple Watch preview showing Heart Rate and Steps widgets">
+          </figure>
+          <figure class="watch-preview">
+            <img
+              src="./assets/images/watch-vitals-480.webp"
+              srcset="./assets/images/watch-vitals-480.webp 480w, ./assets/images/watch-vitals-800.webp 800w"
+              sizes="(min-width: 981px) 270px, (min-width: 521px) 42vw, 88vw"
+              width="1179"
+              height="1334"
+              loading="lazy"
+              decoding="async"
+              alt="Apple Watch preview showing Oxygen Saturation and Workout Time widgets">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="customize-section" id="customize" aria-labelledby="customize-title">
+      <div class="container">
         <div class="section-heading">
-          <p class="section-kicker">Designed for everyday use</p>
-          <h2>Health information that fits your screen.</h2>
-          <p>Bring the Apple Health values you care about out of menus and onto the surfaces you already check throughout your day.</p>
+          <p class="eyebrow">Make it yours</p>
+          <h2 id="customize-title">Choose the data. Make it yours.</h2>
+          <p>HealthPro Widgets keeps setup focused: choose the categories you want, select the values they show, and finish with a color that fits your screen.</p>
+          <p class="availability-note">Available metrics depend on your device, Health permissions, and data recorded in Apple Health. Some metrics require Pro.</p>
         </div>
 
-        <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 8h8M8 12h5M8 16h8"/></svg></div>
-            <h3>Home Screen widgets</h3>
-            <p>See useful health values without opening the Health app. Mix categories across your Home Screen to create a personal health dashboard.</p>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-copy">
+              <span class="step-number">01</span>
+              <h3>Pick your categories.</h3>
+              <p>Choose the kinds of health information you want to see.</p>
+            </div>
+            <figure class="step-visual">
+              <img
+                src="./assets/images/iphone-selection-480.webp"
+                srcset="./assets/images/iphone-selection-480.webp 480w, ./assets/images/iphone-selection-853.webp 853w"
+                sizes="(min-width: 981px) 260px, (min-width: 641px) 30vw, 82vw"
+                width="853"
+                height="1844"
+                loading="lazy"
+                decoding="async"
+                alt="HealthPro Widgets category selection screen with Activity, Walking &amp; Mobility, Workouts &amp; Sports, Heart, Sleep, Vitals, and Environment">
+            </figure>
+          </li>
+          <li class="step">
+            <div class="step-copy">
+              <span class="step-number">02</span>
+              <h3>Choose your metrics.</h3>
+              <p>Select the supported values each category displays.</p>
+            </div>
+            <figure class="step-visual">
+              <img
+                src="./assets/images/iphone-activity-480.webp"
+                srcset="./assets/images/iphone-activity-480.webp 480w, ./assets/images/iphone-activity-873.webp 873w"
+                sizes="(min-width: 981px) 260px, (min-width: 641px) 30vw, 82vw"
+                width="873"
+                height="1802"
+                loading="lazy"
+                decoding="async"
+                alt="HealthPro Activity Widget settings screen with selectable exercise, stand, energy, VO₂ max, and physical effort values">
+            </figure>
+          </li>
+          <li class="step">
+            <div class="step-copy">
+              <span class="step-number">03</span>
+              <h3>Set your colors.</h3>
+              <p>Match your widgets to your screen with available color themes.</p>
+            </div>
+            <figure class="step-visual">
+              <img
+                src="./assets/images/iphone-colors-480.webp"
+                srcset="./assets/images/iphone-colors-480.webp 480w, ./assets/images/iphone-colors-853.webp 853w"
+                sizes="(min-width: 981px) 260px, (min-width: 641px) 30vw, 82vw"
+                width="853"
+                height="1844"
+                loading="lazy"
+                decoding="async"
+                alt="HealthPro Widget color settings screen showing a Lock Screen and Apple Watch preview with available color themes">
+            </figure>
+          </li>
+        </ol>
+        <p class="section-note">Pro unlocks additional supported health data and customization options. For permission and widget-placement help, visit <a href="./support.html">Support</a>.</p>
+      </div>
+    </section>
+
+    <section class="data-section" id="supported-data" aria-labelledby="data-title">
+      <div class="container data-layout">
+        <div class="section-heading section-heading-left">
+          <p class="eyebrow">Supported data</p>
+          <h2 id="data-title">Find the health data you care about.</h2>
+          <p>Explore the metrics available for your widgets, from everyday activity to heart, sleep, and more.</p>
+          <p class="availability-note">Available metrics depend on your device, Health permissions, and data recorded in Apple Health. Some metrics require Pro.</p>
+        </div>
+
+        <details class="data-disclosure">
+          <summary>
+            <span>View supported health data</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="table-shell">
+            <p class="table-note">The table describes values HealthPro can display from Apple Health. A Watch note describes one supported recording source, not a requirement for every source. On smaller screens, scroll within the table to see all columns.</p>
+            <div class="table-wrap">
+              <table>
+                <caption>Supported metrics and access</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Health data</th>
+                    <th scope="col">Access</th>
+                    <th scope="col">Requirements</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Activity</td><th scope="row">Exercise Time</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Activity</td><th scope="row">Stand Time</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health; Apple Watch S1+ source</td></tr>
+                  <tr><td>Activity</td><th scope="row">Active Energy Burned</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Activity</td><th scope="row">Resting Energy Burned</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S1+ source</td></tr>
+                  <tr><td>Activity</td><th scope="row">VO₂ max</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S3+ source</td></tr>
+                  <tr><td>Activity</td><th scope="row">Physical Effort</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Activity</td><th scope="row">Estimated Workout Effort Score</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Activity</td><th scope="row">Push Count</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch source</td></tr>
+                  <tr><td>Activity</td><th scope="row">Stand Hour</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch source</td></tr>
+
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Steps</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Walking + Running Distance</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Flights Climbed</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Walking Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Walking Steadiness</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Walking Asymmetry</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Walking Double Support</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Walking Step Length</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Stair Ascent Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S5+ source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Stair Descent Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S5+ source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Wheelchair Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Number of Times Fallen</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Running Ground Contact Time</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Running Stride Length</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Running Vertical Oscillation</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Walking &amp; Mobility</td><th scope="row">Six-Minute Walk Test Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S3+ source</td></tr>
+
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Workout Time</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Running Power</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Running Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Cycling Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; compatible speed sensor</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Cycling Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Swimming Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S2+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Swimming Stroke Count</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S2+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Cross-Country Skiing Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Downhill Snow Sports Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S3+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Paddle Sports Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Rowing Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Skating Sports Distance</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Cross-Country Skiing Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Paddle Sports Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Rowing Speed</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Underwater Depth</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S10+ or Ultra source</td></tr>
+                  <tr><td>Workouts &amp; Sports</td><th scope="row">Workout Route</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+
+                  <tr><td>Heart</td><th scope="row">Heart Rate</th><td><span class="access access-free">Free</span></td><td>Recorded in Apple Health; Apple Watch S1+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">Resting Heart Rate</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S1+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">Walking Heart Rate Average</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S1+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">Heart Rate Recovery (1 minute)</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">Heart Rate Variability (SDNN)</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S1+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">Atrial Fibrillation Burden</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">ECG Results</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Heart</td><th scope="row">ECG Heart Rate</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+
+                  <tr><td>Sleep</td><th scope="row">Last Sleep</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Sleep</td><th scope="row">Sleeping Breathing Disturbances</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S9+ source</td></tr>
+                  <tr><td>Sleep</td><th scope="row">Sleeping Wrist Temperature</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S8+ source</td></tr>
+
+                  <tr><td>Vitals</td><th scope="row">Oxygen Saturation</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Vitals</td><th scope="row">Respiratory Rate</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S3+ source</td></tr>
+
+                  <tr><td>Environment</td><th scope="row">Environmental Audio Exposure</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S4+ source</td></tr>
+                  <tr><td>Environment</td><th scope="row">Headphone Audio Exposure</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Environment</td><th scope="row">Environmental Sound Reduction</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health</td></tr>
+                  <tr><td>Environment</td><th scope="row">Time in Daylight</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S6+ source</td></tr>
+                  <tr><td>Environment</td><th scope="row">Water Temperature</th><td><span class="access access-pro">Pro</span></td><td>Recorded in Apple Health; Apple Watch S10+ or Ultra source</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="privacy-section" id="privacy" aria-labelledby="privacy-title">
+      <div class="container privacy-layout">
+        <div class="section-heading section-heading-left">
+          <p class="eyebrow">Privacy</p>
+          <h2 id="privacy-title">Your health data stays in your control.</h2>
+          <p>HealthPro Widgets is designed to keep health processing close to the device and clear about the access you grant.</p>
+          <a class="inline-link" href="./privacy.html">Read the Privacy Policy <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="privacy-points">
+          <article class="privacy-point">
+            <span class="point-number">01</span>
+            <p><strong>No HealthPro account required.</strong> Use the app without creating another health profile online.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="4"/><path d="M9 6h6M9 18h6"/></svg></div>
-            <h3>Lock Screen at a glance</h3>
-            <p>Choose a supported data value for your category widget so the information you follow is available right from the Lock Screen.</p>
+          <article class="privacy-point">
+            <span class="point-number">02</span>
+            <p><strong>You control permissions.</strong> Apple Health permissions determine which data HealthPro can access.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="4" width="10" height="16" rx="4"/><path d="M9 1h6M9 23h6M10 9h4M10 13h4"/></svg></div>
-            <h3>Apple Watch widgets</h3>
-            <p>Bring selected health data to your wrist for quick access to metrics such as steps and heart rate on supported Apple Watch models.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/><path d="M2 19h21"/></svg></div>
-            <h3>More than just steps</h3>
-            <p>Configure supported data across activity, mobility, workouts, heart, sleep, vital signs, environment and other Apple Health categories.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7m0-4V3m8 18v-9m0-4V3m8 18v-5m0-4V3"/><path d="M1 14h6M9 8h6M17 16h6"/></svg></div>
-            <h3>Choose what each widget shows</h3>
-            <p>Enable the values you want for each category and select the data used by your Lock Screen and Apple Watch widgets.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 5.8c-2.1-2.2-5.6-1.8-7.3.7L12 8.6l-1.5-2.1C8.8 4 5.3 3.6 3.2 5.8c-2 2.1-1.9 5.5.1 7.5L12 22l8.7-8.7c2-2 2.1-5.4.1-7.5Z"/><path d="M7 12h2l1.2-2.6 2.2 5.2 1.4-2.6H17"/></svg></div>
-            <h3>Built around Apple Health</h3>
-            <p>HealthPro only reads the health data types you choose to authorize through Apple's Health permission controls.</p>
+          <article class="privacy-point">
+            <span class="point-number">03</span>
+            <p><strong>Processed on your device.</strong> Health measurements are not uploaded to a HealthPro server.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="screenshots">
-      <div class="wrap">
-        <div class="section-heading">
-          <p class="section-kicker">The real app</p>
-          <h2>Simple to set up. Easy to glance at.</h2>
-          <p>These are actual HealthPro Widgets screens, from choosing categories to configuring data and viewing widgets on your wrist.</p>
-        </div>
-
-        <div class="gallery-wrap">
-          <div class="gallery-grid">
-            <article class="shot-card">
-              <div class="shot-copy">
-                <h3>Pick the categories that matter</h3>
-                <p>Enable categories like Activity, Walking & Mobility, Workouts & Sports, Heart, Sleep and Vitals.</p>
-              </div>
-              <img class="iphone-shot" src="assets/healthpro-categories.webp" width="480" height="1044" loading="lazy" alt="HealthPro Widgets category selection screen with Activity, Walking and Mobility, Workouts and Sports, Heart, Sleep and Vitals enabled">
-            </article>
-
-            <article class="shot-card">
-              <div class="shot-copy">
-                <h3>Choose exactly what to show</h3>
-                <p>Turn supported health values on or off and choose which one appears on the Lock Screen and Apple Watch.</p>
-              </div>
-              <img class="iphone-shot" src="assets/healthpro-activity-widget.webp" width="480" height="1044" loading="lazy" alt="HealthPro Activity Widget settings screen showing Exercise Time, Stand Time, Active Energy, Resting Energy, VO2 max and Physical Effort">
-            </article>
-
-            <article class="watch-panel">
-              <div>
-                <p class="section-kicker">On your wrist</p>
-                <h3>Keep key metrics close.</h3>
-                <p>HealthPro Widgets can surface selected values on Apple Watch, giving you a fast glance at information such as heart rate and steps without reaching for your phone.</p>
-              </div>
-              <img class="watch-shot" src="assets/healthpro-watch.webp" width="360" height="429" loading="lazy" alt="HealthPro Widgets Apple Watch screen showing Heart Rate at 72 bpm and Steps at 3,651">
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="privacy">
-      <div class="wrap">
-        <div class="privacy-panel">
-          <div>
-            <p class="section-kicker">Private by design</p>
-            <h2>Your health data belongs to you.</h2>
-            <p>HealthPro Widgets is designed to read and display the Apple Health data you choose to authorize. Your health measurements are processed on your device and are not uploaded to a HealthPro Widgets server.</p>
-            <div class="privacy-list">
-              <div class="privacy-item"><span class="check">✓</span><span><strong>No HealthPro account required.</strong> Use the app without creating another health profile online.</span></div>
-              <div class="privacy-item"><span class="check">✓</span><span><strong>No advertising use of HealthKit data.</strong> HealthKit data is not used for advertising, marketing, profiling, or cross-app tracking.</span></div>
-              <div class="privacy-item"><span class="check">✓</span><span><strong>You control permissions.</strong> Apple shows the health data types requested and lets you grant or revoke access.</span></div>
-            </div>
-            <div style="margin-top:30px">
-              <a class="button button-secondary" href="privacy.html">Read the Privacy Policy</a>
-            </div>
-          </div>
-
-          <div class="shield-visual" aria-hidden="true">
-            <div class="shield-core">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10Z"/><path d="M9 12.2 11 14l4-4"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <div class="cta-card">
-          <p class="section-kicker" style="color:rgba(255,255,255,.72)">Health at a glance</p>
-          <h2>Make your Health data more visible.</h2>
-          <p>Download HealthPro Widgets and bring the health information you care about to your iPhone and Apple Watch.</p>
-          <a class="button" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">Get HealthPro Widgets on the App Store <span aria-hidden="true">→</span></a>
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="container">
+        <div class="cta-panel">
+          <p class="caption-label">Health at a glance</p>
+          <h2 id="final-title">Put your health in view.</h2>
+          <p>Choose the Apple Health information you care about and make it part of the places you already look.</p>
+          <a class="app-store-link" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer" aria-label="Download HealthPro Widgets on the App Store">
+            <img src="./assets/images/download-on-app-store.svg" width="120" height="40" alt="Download on the App Store">
+          </a>
+          <p class="cta-note">Free to download. Optional Pro upgrade.</p>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <div class="footer-row">
-        <div>© 2026 HealthPro Widgets</div>
-        <div class="footer-links">
-          <a href="privacy.html">Privacy</a>
-          <a href="support.html">Support</a>
-          <a href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">App Store</a>
-        </div>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <p>© 2026 HealthPro Widgets</p>
+        <nav aria-label="Footer navigation">
+          <a href="./privacy.html">Privacy</a>
+          <a href="./support.html">Support</a>
+          <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+        </nav>
       </div>
       <p class="disclaimer">HealthPro Widgets is intended to provide a convenient display of health and activity information. It is not intended to diagnose, treat, cure, or prevent any disease or medical condition and should not be used for emergency or medical decision-making. Apple, Apple Health, iPhone, Apple Watch, and App Store are trademarks of Apple Inc.</p>
     </div>
