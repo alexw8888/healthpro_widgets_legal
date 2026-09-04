@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f7f9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0f12" media="(prefers-color-scheme: dark)">
+  <title>HealthPro Widgets — Your health, right where you look</title>
+  <meta name="description" content="Turn Apple Health data into beautiful, glanceable Home Screen, Lock Screen, and Apple Watch widgets with HealthPro Widgets.">
+  <meta property="og:title" content="HealthPro Widgets">
+  <meta property="og:description" content="Your Apple Health data, beautifully displayed in widgets across iPhone and Apple Watch.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f7f9;
+      --bg-elevated: #ffffff;
+      --card: rgba(255, 255, 255, 0.78);
+      --card-solid: #ffffff;
+      --text: #16181c;
+      --muted: #656b75;
+      --border: rgba(31, 35, 40, 0.10);
+      --border-strong: rgba(31, 35, 40, 0.16);
+      --accent: #b4233c;
+      --accent-bright: #e3455e;
+      --accent-soft: #fff0f3;
+      --accent-soft-strong: #ffe1e7;
+      --success: #2d8a62;
+      --shadow: 0 28px 80px rgba(21, 24, 30, 0.10);
+      --shadow-soft: 0 14px 40px rgba(21, 24, 30, 0.08);
+      --max-width: 1160px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d0f12;
+        --bg-elevated: #14171b;
+        --card: rgba(24, 27, 32, 0.82);
+        --card-solid: #191c21;
+        --text: #f4f5f7;
+        --muted: #a9b0bb;
+        --border: rgba(255, 255, 255, 0.09);
+        --border-strong: rgba(255, 255, 255, 0.15);
+        --accent: #ff7188;
+        --accent-bright: #ff8a9d;
+        --accent-soft: #351920;
+        --accent-soft-strong: #4a2028;
+        --success: #77d3a7;
+        --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+        --shadow-soft: 0 14px 45px rgba(0, 0, 0, 0.30);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 85% 4%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 30rem),
+        radial-gradient(circle at 8% 26%, color-mix(in srgb, #5a7cff 8%, transparent), transparent 24rem),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    button,
+    a { -webkit-tap-highlight-color: transparent; }
+
+    .wrap {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid transparent;
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      backdrop-filter: blur(20px) saturate(145%);
+      -webkit-backdrop-filter: blur(20px) saturate(145%);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: linear-gradient(145deg, #df4b63, #a11732);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 8px 20px rgba(180,35,60,.24);
+    }
+
+    .brand-mark svg { width: 24px; height: 24px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 720;
+      letter-spacing: -0.01em;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+
+    .button-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent-bright), #a51e37);
+      box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 24%, transparent);
+    }
+
+    .button-secondary {
+      background: var(--card-solid);
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .button-small {
+      min-height: 40px;
+      padding: 0 15px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      min-height: 720px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 72px;
+      align-items: center;
+      padding: 86px 0 96px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 18px;
+      padding: 7px 11px;
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+      border-radius: 999px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: .84rem;
+      font-weight: 750;
+      letter-spacing: .01em;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin-top: 0; }
+
+    h1 {
+      max-width: 720px;
+      margin-bottom: 22px;
+      font-size: clamp(3.35rem, 7.2vw, 6.8rem);
+      line-height: .94;
+      letter-spacing: -0.065em;
+      font-weight: 820;
+    }
+
+    .hero-highlight {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      margin-bottom: 30px;
+      color: var(--muted);
+      font-size: clamp(1.12rem, 2vw, 1.3rem);
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .trust-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .trust-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .check {
+      width: 18px;
+      height: 18px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--success);
+      background: color-mix(in srgb, var(--success) 13%, transparent);
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 600px;
+      display: grid;
+      place-items: center;
+    }
+
+    .glow {
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 67%);
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    .phone {
+      position: relative;
+      z-index: 2;
+      width: min(330px, 72vw);
+      aspect-ratio: 0.49;
+      padding: 9px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 52px;
+      background: linear-gradient(145deg, #2c2f35, #090a0d 55%, #34373e);
+      box-shadow: 0 40px 100px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.34);
+      transform: rotate(4deg);
+    }
+
+    .phone-screen {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      padding: 78px 17px 24px;
+      border-radius: 44px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 5%, rgba(235, 94, 118, .58), transparent 37%),
+        radial-gradient(circle at 4% 86%, rgba(85, 101, 184, .5), transparent 42%),
+        linear-gradient(165deg, #293042, #121521 52%, #1b1520);
+    }
+
+    .phone-island {
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      width: 96px;
+      height: 28px;
+      border-radius: 999px;
+      background: #050607;
+      transform: translateX(-50%);
+    }
+
+    .screen-date {
+      margin: 0 0 15px 4px;
+      color: rgba(255,255,255,.78);
+      font-size: .79rem;
+      font-weight: 640;
+    }
+
+    .widget {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 12px;
+      padding: 17px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 22px;
+      background: rgba(20, 22, 29, .70);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 12px 28px rgba(0,0,0,.16);
+    }
+
+    .widget::after {
+      content: "";
+      position: absolute;
+      inset: auto -18px -26px auto;
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--widget-accent, #ff6580) 28%, transparent);
+      filter: blur(18px);
+    }
+
+    .widget-label {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 6px;
+      color: rgba(255,255,255,.76);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+    }
+
+    .widget-value {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      font-size: 2.25rem;
+      line-height: 1;
+      font-weight: 780;
+      letter-spacing: -.045em;
+    }
+
+    .widget-unit {
+      color: rgba(255,255,255,.62);
+      font-size: .78rem;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .widget-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .widget.small { min-height: 122px; }
+    .widget.small .widget-value { font-size: 1.55rem; }
+
+    .mini-chart {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: end;
+      gap: 4px;
+      height: 34px;
+      margin-top: 13px;
+    }
+
+    .mini-chart i {
+      flex: 1;
+      min-width: 3px;
+      border-radius: 999px;
+      background: var(--widget-accent, #ff6580);
+      opacity: .82;
+    }
+
+    .watch {
+      position: absolute;
+      z-index: 4;
+      right: 2%;
+      bottom: 8%;
+      width: 162px;
+      height: 196px;
+      padding: 8px;
+      border-radius: 42px;
+      background: linear-gradient(145deg, #3c4047, #111317 56%, #42464d);
+      box-shadow: 0 28px 60px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.28);
+      transform: rotate(-8deg);
+    }
+
+    .watch::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: 55px;
+      width: 7px;
+      height: 32px;
+      border-radius: 0 6px 6px 0;
+      background: #262a30;
+    }
+
+    .watch-screen {
+      height: 100%;
+      display: grid;
+      align-content: center;
+      padding: 18px;
+      border-radius: 34px;
+      color: #fff;
+      background: radial-gradient(circle at 60% 0%, #59212e, #121317 48%, #08090b);
+      text-align: center;
+    }
+
+    .watch-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 10px;
+      border-radius: 13px;
+      color: #ff8397;
+      background: rgba(255, 113, 136, .15);
+    }
+
+    .watch-icon svg { width: 24px; height: 24px; }
+
+    .watch-value {
+      font-size: 1.8rem;
+      line-height: 1;
+      font-weight: 770;
+      letter-spacing: -.04em;
+    }
+
+    .watch-label {
+      margin-top: 7px;
+      color: rgba(255,255,255,.65);
+      font-size: .72rem;
+      font-weight: 650;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      top: 22%;
+      width: 176px;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: color-mix(in srgb, var(--card-solid) 88%, transparent);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transform: rotate(-5deg);
+    }
+
+    .float-card strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: .89rem;
+    }
+
+    .float-card span {
+      color: var(--muted);
+      font-size: .77rem;
+    }
+
+    .float-dot {
+      width: 9px;
+      height: 9px;
+      display: inline-block;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .proof {
+      padding: 22px 0 14px;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .proof-item {
+      min-height: 148px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 26px;
+    }
+
+    .proof-item + .proof-item { border-left: 1px solid var(--border); }
+
+    .proof-icon,
+    .feature-icon {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .proof-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+    }
+
+    .proof-icon svg { width: 25px; height: 25px; }
+
+    .proof-item strong {
+      display: block;
+      margin-bottom: 3px;
+      letter-spacing: -.015em;
+    }
+
+    .proof-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+
+    section { padding: 108px 0; }
+
+    .section-heading {
+      max-width: 720px;
+      margin: 0 auto 52px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: .86rem;
+      font-weight: 780;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: clamp(2.35rem, 5vw, 4.25rem);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+      font-weight: 800;
+    }
+
+    .section-heading p,
+    .section-intro {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      min-height: 270px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: var(--card);
+      box-shadow: 0 8px 30px rgba(20, 24, 30, .035);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+    }
+
+    .feature-icon svg { width: 25px; height: 25px; }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+      letter-spacing: -.025em;
+    }
+
+    .feature-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 76px;
+      align-items: center;
+    }
+
+    .showcase h2 { max-width: 650px; }
+
+    .metric-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 28px;
+    }
+
+    .metric-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card-solid);
+      color: var(--muted);
+      font-size: .86rem;
+      font-weight: 650;
+      box-shadow: 0 5px 20px rgba(20, 24, 30, .035);
+    }
+
+    .metric-chip i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--chip-color, var(--accent));
+    }
+
+    .widget-board {
+      position: relative;
+      min-height: 540px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 82% 14%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 38%),
+        linear-gradient(145deg, color-mix(in srgb, var(--card-solid) 92%, transparent), color-mix(in srgb, var(--bg-elevated) 84%, transparent));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .widget-stack {
+      width: min(430px, calc(100% - 42px));
+      display: grid;
+      gap: 14px;
+      transform: rotate(-2deg);
+    }
+
+    .demo-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--card-solid);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .demo-card.large {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .demo-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: .83rem;
+      font-weight: 700;
+    }
+
+    .demo-value {
+      font-size: 2.25rem;
+      line-height: 1.05;
+      font-weight: 790;
+      letter-spacing: -.045em;
+    }
+
+    .demo-sub {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .ring {
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent) 0 76%, var(--accent-soft-strong) 76% 100%);
+    }
+
+    .ring::after {
+      content: "76%";
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--card-solid);
+      color: var(--muted);
+      font-size: .71rem;
+      font-weight: 750;
+    }
+
+    .demo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .privacy-panel {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 54px;
+      align-items: center;
+      padding: 58px;
+      border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 96% 8%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 31rem),
+        var(--card-solid);
+      box-shadow: var(--shadow);
+    }
+
+    .privacy-panel h2 { margin-bottom: 18px; }
+
+    .privacy-panel p {
+      max-width: 610px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .privacy-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .privacy-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .privacy-item strong { color: var(--text); }
+
+    .shield-visual {
+      width: min(330px, 100%);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, var(--accent-soft) 0 40%, transparent 41%),
+        repeating-radial-gradient(circle at 50% 50%, transparent 0 49px, color-mix(in srgb, var(--accent) 12%, transparent) 50px 51px);
+    }
+
+    .shield-core {
+      width: 126px;
+      height: 126px;
+      display: grid;
+      place-items: center;
+      border-radius: 36px;
+      color: var(--accent);
+      background: var(--card-solid);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .shield-core svg { width: 58px; height: 58px; }
+
+    .cta-card {
+      padding: 70px 54px;
+      border-radius: 34px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 85% 12%, rgba(255,255,255,.18), transparent 24rem),
+        linear-gradient(135deg, #d33d56, #98162f 58%, #731024);
+      box-shadow: 0 32px 80px rgba(132, 20, 45, .25);
+      text-align: center;
+    }
+
+    .cta-card h2 {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #fff;
+    }
+
+    .cta-card p {
+      max-width: 620px;
+      margin: 0 auto 28px;
+      color: rgba(255,255,255,.78);
+      font-size: 1.05rem;
+    }
+
+    .cta-card .button {
+      color: #17181b;
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(0,0,0,.18);
+    }
+
+    .site-footer {
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .disclaimer {
+      max-width: 920px;
+      margin: 18px 0 0;
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-top: 72px;
+      }
+
+      .hero-copy { max-width: 720px; }
+      .hero-visual { min-height: 620px; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .showcase { grid-template-columns: 1fr; gap: 44px; }
+      .privacy-panel { grid-template-columns: 1fr; }
+      .shield-visual { order: -1; width: 280px; }
+    }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 28px, var(--max-width)); }
+      .nav { min-height: 64px; }
+      .nav-links a:not(.button) { display: none; }
+      .hero { min-height: 0; padding: 58px 0 74px; }
+      h1 { font-size: clamp(3rem, 15vw, 5rem); }
+      .hero-visual { min-height: 550px; }
+      .phone { width: 286px; }
+      .watch { width: 142px; height: 173px; right: 0; }
+      .float-card { left: -4px; top: 17%; width: 158px; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-item + .proof-item { border-left: 0; border-top: 1px solid var(--border); }
+      section { padding: 82px 0; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature-card { min-height: 0; }
+      .privacy-panel { padding: 34px 24px; border-radius: 28px; }
+      .cta-card { padding: 54px 24px; border-radius: 28px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .brand span:last-child { display: none; }
+      .hero-visual { min-height: 510px; }
+      .phone { width: 258px; border-radius: 46px; }
+      .phone-screen { border-radius: 39px; padding-left: 13px; padding-right: 13px; }
+      .widget-value { font-size: 1.95rem; }
+      .widget-row { gap: 8px; }
+      .widget.small { padding: 13px; }
+      .watch { width: 124px; height: 154px; border-radius: 34px; right: -6px; bottom: 6%; }
+      .watch-screen { border-radius: 27px; padding: 12px; }
+      .watch-value { font-size: 1.45rem; }
+      .float-card { width: 143px; padding: 11px 12px; }
+      .demo-row { grid-template-columns: 1fr; }
+      .widget-board { min-height: 510px; }
+      .section-heading { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="HealthPro Widgets home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 5.8c-2.1-2.2-5.6-1.8-7.3.7L12 8.6l-1.5-2.1C8.8 4 5.3 3.6 3.2 5.8c-2 2.1-1.9 5.5.1 7.5L12 22l8.7-8.7c2-2 2.1-5.4.1-7.5Z"/>
+            <path d="M6.8 12h2.2l1.1-2.4 2.1 5.3 1.5-3h3.5"/>
+          </svg>
+        </span>
+        <span>HealthPro Widgets</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="support.html">Support</a>
+        <a class="button button-primary button-small" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">Get the app</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Built for Apple Health</div>
+          <h1 id="hero-title">Your health.<span class="hero-highlight">Right where you look.</span></h1>
+          <p class="hero-copy">Turn the Apple Health data you care about into beautiful, glanceable widgets across your iPhone and Apple Watch. Pick your metrics, personalize the look, and stay connected to your day.</p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer" aria-label="Download HealthPro Widgets on the App Store">Download on the App Store <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#features">Explore features</a>
+          </div>
+
+          <div class="trust-note" aria-label="Product highlights">
+            <span><span class="check">✓</span> No HealthPro account</span>
+            <span><span class="check">✓</span> Health data stays on device</span>
+            <span><span class="check">✓</span> Built around Apple Health</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Illustration of HealthPro Widgets on iPhone and Apple Watch">
+          <div class="glow"></div>
+
+          <div class="float-card">
+            <strong><span class="float-dot"></span>Private by design</strong>
+            <span>Your health measurements are not uploaded to a HealthPro server.</span>
+          </div>
+
+          <div class="phone" aria-hidden="true">
+            <div class="phone-screen">
+              <div class="phone-island"></div>
+              <p class="screen-date">FRIDAY · SEPTEMBER 4</p>
+
+              <div class="widget" style="--widget-accent:#ff647e">
+                <div class="widget-label">♥ Steps</div>
+                <div class="widget-value">7,842 <span class="widget-unit">steps</span></div>
+                <div class="mini-chart">
+                  <i style="height:28%"></i><i style="height:40%"></i><i style="height:32%"></i><i style="height:58%"></i><i style="height:48%"></i><i style="height:78%"></i><i style="height:66%"></i><i style="height:92%"></i><i style="height:83%"></i><i style="height:100%"></i>
+                </div>
+              </div>
+
+              <div class="widget-row">
+                <div class="widget small" style="--widget-accent:#7d91ff">
+                  <div class="widget-label">☾ Sleep</div>
+                  <div class="widget-value">7h 28m</div>
+                  <div class="widget-unit">last night</div>
+                </div>
+                <div class="widget small" style="--widget-accent:#ff6b86">
+                  <div class="widget-label">♥ Heart Rate</div>
+                  <div class="widget-value">68 <span class="widget-unit">bpm</span></div>
+                  <div class="widget-unit">latest</div>
+                </div>
+              </div>
+
+              <div class="widget" style="--widget-accent:#67c99a">
+                <div class="widget-label">● Active Energy</div>
+                <div class="widget-value">486 <span class="widget-unit">kcal</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="watch" aria-hidden="true">
+            <div class="watch-screen">
+              <div class="watch-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.8 5.8c-2.1-2.2-5.6-1.8-7.3.7L12 8.6l-1.5-2.1C8.8 4 5.3 3.6 3.2 5.8c-2 2.1-1.9 5.5.1 7.5L12 22l8.7-8.7c2-2 2.1-5.4.1-7.5Z"/>
+                </svg>
+              </div>
+              <div class="watch-value">7,842</div>
+              <div class="watch-label">STEPS TODAY</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="wrap proof" aria-label="HealthPro Widgets at a glance">
+      <div class="proof-grid">
+        <div class="proof-item">
+          <div class="proof-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
+          </div>
+          <div><strong>Glanceable widgets</strong><p>Put the health metrics you care about directly where you see them most.</p></div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="4"/><path d="M9.5 7.5h5M9.5 11h5M9.5 14.5h3"/></svg>
+          </div>
+          <div><strong>iPhone + Apple Watch</strong><p>Keep useful health information close on supported Apple devices.</p></div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div><strong>Privacy-first</strong><p>No HealthPro account is required, and health measurements stay on your device.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="section-kicker">Designed for everyday use</p>
+          <h2>Health information that fits your screen.</h2>
+          <p>HealthPro Widgets helps you bring useful Apple Health data out of menus and onto the surfaces you already check throughout the day.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 8h8M8 12h5M8 16h8"/></svg></div>
+            <h3>Home Screen widgets</h3>
+            <p>Make important activity and health values part of your everyday Home Screen layout for quick, effortless check-ins.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="4"/><path d="M9 6h6M9 18h6"/></svg></div>
+            <h3>Lock Screen at a glance</h3>
+            <p>See selected health information with less friction by adding supported HealthPro widgets to your iPhone Lock Screen.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="10" height="16" rx="4"/><path d="M9 1h6M9 23h6"/><path d="M10 9h4M10 13h4"/></svg></div>
+            <h3>Apple Watch widgets</h3>
+            <p>Bring selected health information to your wrist so the values you follow are close at hand throughout your day.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/><path d="M2 19h21"/></svg></div>
+            <h3>More than just steps</h3>
+            <p>Choose from supported Apple Health data across activity, workouts, heart, sleep, mobility, vital signs, and more.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="8" r="1"/><circle cx="16" cy="14" r="1"/><path d="M8 16h4"/></svg></div>
+            <h3>Make it yours</h3>
+            <p>Choose the data you want to surface and personalize widget presentation so your setup feels at home on your devices.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.8c-2.1-2.2-5.6-1.8-7.3.7L12 8.6l-1.5-2.1C8.8 4 5.3 3.6 3.2 5.8c-2 2.1-1.9 5.5.1 7.5L12 22l8.7-8.7c2-2 2.1-5.4.1-7.5Z"/><path d="M7 12h2l1.2-2.6 2.2 5.2 1.4-2.6H17"/></svg></div>
+            <h3>Built around Apple Health</h3>
+            <p>HealthPro only reads the health data types you choose to authorize through Apple's Health permission controls.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap showcase">
+        <div>
+          <p class="section-kicker">Your metrics, your way</p>
+          <h2>Follow what matters to you.</h2>
+          <p class="section-intro">From everyday activity to sleep and heart information, HealthPro can surface supported Apple Health values in a format that is easier to scan throughout the day.</p>
+
+          <div class="metric-list" aria-label="Example health categories">
+            <span class="metric-chip"><i style="--chip-color:#ff6079"></i>Steps</span>
+            <span class="metric-chip"><i style="--chip-color:#5f84ef"></i>Distance</span>
+            <span class="metric-chip"><i style="--chip-color:#f58b45"></i>Active Energy</span>
+            <span class="metric-chip"><i style="--chip-color:#ff6079"></i>Heart Rate</span>
+            <span class="metric-chip"><i style="--chip-color:#7d75df"></i>Sleep</span>
+            <span class="metric-chip"><i style="--chip-color:#4eb98a"></i>Workouts</span>
+            <span class="metric-chip"><i style="--chip-color:#4e9fd3"></i>Vitals</span>
+            <span class="metric-chip"><i style="--chip-color:#d976b3"></i>Mobility</span>
+          </div>
+        </div>
+
+        <div class="widget-board" aria-hidden="true">
+          <div class="widget-stack">
+            <div class="demo-card large">
+              <div>
+                <div class="demo-label">● Steps</div>
+                <div class="demo-value">7,842</div>
+                <div class="demo-sub">Daily goal progress</div>
+              </div>
+              <div class="ring"></div>
+            </div>
+
+            <div class="demo-row">
+              <div class="demo-card">
+                <div class="demo-label">♥ Resting Heart Rate</div>
+                <div class="demo-value">62 <span style="font-size:.8rem;color:var(--muted);letter-spacing:0">bpm</span></div>
+                <div class="demo-sub">Latest reading</div>
+              </div>
+              <div class="demo-card">
+                <div class="demo-label">☾ Sleep</div>
+                <div class="demo-value">7h 28m</div>
+                <div class="demo-sub">Last night</div>
+              </div>
+            </div>
+
+            <div class="demo-card large">
+              <div>
+                <div class="demo-label">● Walking + Running Distance</div>
+                <div class="demo-value">5.7 <span style="font-size:.82rem;color:var(--muted);letter-spacing:0">km</span></div>
+                <div class="demo-sub">Today</div>
+              </div>
+              <svg width="76" height="40" viewBox="0 0 76 40" fill="none" aria-hidden="true"><path d="M2 31C10 30 11 20 19 23C27 26 28 9 37 12C45 15 48 29 55 22C63 14 65 7 74 8" stroke="currentColor" stroke-width="4" stroke-linecap="round" style="color:var(--accent)"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="wrap">
+        <div class="privacy-panel">
+          <div>
+            <p class="section-kicker">Private by design</p>
+            <h2>Your health data belongs to you.</h2>
+            <p>HealthPro Widgets is designed to read and display the Apple Health data you choose to authorize. Your health measurements are processed on your device and are not uploaded to a HealthPro Widgets server.</p>
+
+            <div class="privacy-list">
+              <div class="privacy-item"><span class="check">✓</span><span><strong>No HealthPro account required.</strong> Start using the app without creating another health profile online.</span></div>
+              <div class="privacy-item"><span class="check">✓</span><span><strong>No advertising use of HealthKit data.</strong> Your HealthKit data is not used for advertising, marketing, profiling, or cross-app tracking.</span></div>
+              <div class="privacy-item"><span class="check">✓</span><span><strong>You control permissions.</strong> Apple shows the health data types requested and lets you grant or revoke access.</span></div>
+            </div>
+
+            <div style="margin-top:30px">
+              <a class="button button-secondary" href="privacy.html">Read the Privacy Policy</a>
+            </div>
+          </div>
+
+          <div class="shield-visual" aria-hidden="true">
+            <div class="shield-core">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10Z"/><path d="M9 12.2 11 14l4-4"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="cta-card">
+          <p class="section-kicker" style="color:rgba(255,255,255,.72)">Health at a glance</p>
+          <h2>Make your Health data more visible.</h2>
+          <p>Download HealthPro Widgets and bring the health information you care about to your iPhone and Apple Watch.</p>
+          <a class="button" href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">Get HealthPro Widgets on the App Store <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-row">
+        <div>© 2026 HealthPro Widgets</div>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="support.html">Support</a>
+          <a href="https://apps.apple.com/us/app/healthpro-widgets/id6799803107" target="_blank" rel="noopener noreferrer">App Store</a>
+        </div>
+      </div>
+      <p class="disclaimer">HealthPro Widgets is intended to provide a convenient display of health and activity information. It is not intended to diagnose, treat, cure, or prevent any disease or medical condition and should not be used for emergency or medical decision-making. Apple, Apple Health, iPhone, Apple Watch, and App Store are trademarks of Apple Inc.</p>
+    </div>
+  </footer>
+</body>
+</html>
