@@ -323,8 +323,7 @@ h3 {
   line-height: 1.55;
 }
 
-.metric-list,
-.metric-strip ul {
+.metric-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -333,8 +332,7 @@ h3 {
   list-style: none;
 }
 
-.metric-list li,
-.metric-strip li {
+.metric-list li {
   padding: 5px 10px;
   color: var(--accent-dark);
   background: var(--accent-soft);
@@ -342,40 +340,6 @@ h3 {
   font-size: 0.78rem;
   font-weight: 700;
   line-height: 1.25;
-}
-
-.metric-strip {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.metric-strip-inner {
-  min-height: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 22px;
-}
-
-.metric-strip p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.metric-strip li {
-  padding: 0;
-  color: var(--muted);
-  background: transparent;
-  font-size: 0.9rem;
-  font-weight: 650;
-}
-
-.metric-strip li + li::before {
-  content: "·";
-  margin-right: 10px;
-  color: var(--border-strong);
 }
 
 .anchor-alias {
@@ -918,14 +882,6 @@ tbody tr:last-child td {
 
   h1 {
     font-size: clamp(2.8rem, 12vw, 4.25rem);
-  }
-
-  .metric-strip-inner {
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    padding-block: 18px;
   }
 
   .hero-visual {
